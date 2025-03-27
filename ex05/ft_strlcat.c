@@ -1,24 +1,30 @@
-#include "exam_rank02.h"
+#include <unistd.h>
 
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+static int	ft_strlen(char *str)
 {
-	unsigned int	dst_len;
-	unsigned int	src_len;
-	unsigned int	remain;
-	unsigned int	i;
+	int	i;
 
-	dst_len = ft_strlen(dest);
-	src_len = ft_strlen(src);
-	remain = size - dst_len - 1; /* 计算两个字符串相接后的可能的剩余内存空间 */
-	if (remain > 0)
-	{
-		i = 0;
-		while (i < remain && src[i] != '\0')
-		{
-			dest[dst_len + i] = src[i];
-			i++;
-		}
-		dest[dst_len + i] = '\0';
-	}
-	return (dst_len + src_len);
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+unsigned int ft_strlcat(char *dest, char *src, unsigned int size)
+{
+    unsigned int dst_len = ft_strlen(dest);
+    unsigned int src_len = ft_strlen(src);
+    unsigned int remain = size - dst_len - 1; // Espacio restante en dest
+
+    if (size <= dst_len)  // Si el espacio total es menor o igual a dst_len, no se puede concatenar
+        return (src_len + size);
+
+    unsigned int i = 0;
+    while (i < remain && src[i] != '\0')
+    {
+        dest[dst_len + i] = src[i];
+        i++;
+    }
+    dest[dst_len + i] = '\0';  // Añadir el terminador nulo
+    return (dst_len + src_len);
 }

@@ -1,17 +1,20 @@
-#include "exam_rank02.h"
+#include <unistd.h>
 
-char    *ft_strcat(char *dest, char *src)
+char *ft_strcat(char *dest, char *src)
 {
-    int i;
+    int i = 0;
+    int j = 0;
 
-    i = 0;
+    // Mover a la última posición de dest
     while (dest[i] != '\0')
         i++;
-    while (src[i] != '\0')
+
+    // Copiar src a dest
+    while (src[j] != '\0')
     {
-        dest[i] = src[i];
-        i++;
+        dest[i + j] = src[j];
+        j++;
     }
-    dest[i] = '\0';
+    dest[i + j] = '\0'; // Agregar el terminador nulo
     return (dest);
 }
